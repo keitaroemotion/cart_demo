@@ -16,6 +16,12 @@ Things you may want to cover:
 * Database initialization
 
 * How to run the test suite
+You can launch your rails site with the command as follows:
+
+`
+$ launch
+`
+
 
 * Services (job queues, cache servers, search engines, etc.)
 
