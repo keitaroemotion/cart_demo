@@ -1,0 +1,9 @@
+#!/usr/bin/env sh
+
+launch_web(){
+    sleep 3
+    open http://localhost:3000
+}
+
+launch_web& 
+bin/rails server
