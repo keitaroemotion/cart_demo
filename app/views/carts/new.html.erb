@@ -2,7 +2,7 @@
 
 we can refer the omise.js here
 for providing payment
-<%= form_for :article do |f| %>
+<%= form_for :cart, url:carts_path do |f| %>
   <p>
     <%= f.label :title %><br>
     <%= f.text_field :title %>
