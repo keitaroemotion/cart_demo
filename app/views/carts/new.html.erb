@@ -1,17 +1,63 @@
 <h1>Payment Form Demo</h1>
 
+<!-- https://www.omise.co/omise-js-api -->
+
 we can refer the omise.js here
 for providing payment
+
+<script src="https://cdn.omise.co/omise.js.gz"></script>
+<script type="text/javascript">
+  function createToken(){
+    try{
+      Omise.setPublicKey("pkey_test_55xmqibbcwp4hswftj4");
+      var card_form = document.getElementById("card");
+      console.log("my object: %o", card_form);
+
+      var card = {
+        "name": card_form.holder_name.value,
+        "number": card_form.number.value,
+        "expiration_month": card_form.expiration_month.value,
+        "expiration_year": card_form.expiration_year.value,
+        "security_code": card_form.security_code.value
+      };
+
+    }catch(err){
+      alert(err);
+    }
+  }
+</script>
+
+<!--
+  $(document).load(function(){
+
+    Omise.createToken("card", card, function (statusCode, response) {
+      if (statusCode == 200) {
+        alert response.id
+        // Success: send back the TOKEN_ID to your server. The TOKEN_ID can be
+        // found in `response.id`.
+      } else {
+        alert response.code
+        // Error: display an error message. Note that `response.message` contains
+        // a preformatted error message. Also note that `response.code` will be
+        // "invalid_card" in case of validation error on the card.
+      };
+    });
+  });
+-->
+
 <%= form_for :cart, url:carts_path do |f| %>
-  <p>
-    <%= f.label :title %><br>
-    <%= f.text_field :title %>
-  </p>
+<div id="card">
+  <div class="holder_name">
+    <%= f.label :holder_name %><br>
+    <%= f.text_field :holder_name %>
+  </div>
   <p>
     <%= f.label :text %><br>
     <%= f.text_area :text %>
   </p>
   <p>
+    <%= javascript_tag "createToken()" %>
     <%= f.submit %>
   </p>
+</div>  
 <% end %>
