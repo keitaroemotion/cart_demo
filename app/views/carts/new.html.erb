@@ -2,8 +2,9 @@
 
 <!-- https://www.omise.co/omise-js-api -->
 
-we can refer the omise.js here
-for providing payment
+<p>
+Enter your Credit Card Info:
+</p>
 
 <script src="https://cdn.omise.co/omise.js.gz"></script>
 <script type="text/javascript">
@@ -11,15 +12,27 @@ for providing payment
     try{
       Omise.setPublicKey("pkey_test_55xmqibbcwp4hswftj4");
       var card_form = document.getElementById("card");
-      console.log("my object: %o", card_form);
 
       var card = {
-        "name": card_form.holder_name.value,
-        "number": card_form.number.value,
-        "expiration_month": card_form.expiration_month.value,
-        "expiration_year": card_form.expiration_year.value,
-        "security_code": card_form.security_code.value
+        "name": cart_holder_name.value,
+        "number": cart_number.value,
+        "expiration_month": cart_expiration_month.value,
+        "expiration_year": cart_expiration_year.value,
+        "security_code": cart_security_code.value
       };
+
+      Omise.createToken("card", card, function (statusCode, response) {
+        if (statusCode == 200) {
+          alert(response.id);
+          // Success: send back the TOKEN_ID to your server. The TOKEN_ID can be
+          // found in `response.id`.
+        } else {
+          alert(response.code);
+          // Error: display an error message. Note that `response.message` contains
+          // a preformatted error message. Also note that `response.code` will be
+          // "invalid_card" in case of validation error on the card.
+        };
+      });
 
     }catch(err){
       alert(err);
@@ -27,37 +40,43 @@ for providing payment
   }
 </script>
 
-<!--
-  $(document).load(function(){
-
-    Omise.createToken("card", card, function (statusCode, response) {
-      if (statusCode == 200) {
-        alert response.id
-        // Success: send back the TOKEN_ID to your server. The TOKEN_ID can be
-        // found in `response.id`.
-      } else {
-        alert response.code
-        // Error: display an error message. Note that `response.message` contains
-        // a preformatted error message. Also note that `response.code` will be
-        // "invalid_card" in case of validation error on the card.
-      };
-    });
-  });
--->
-
 <%= form_for :cart, url:carts_path do |f| %>
 <div id="card">
-  <div class="holder_name">
-    <%= f.label :holder_name %><br>
+
+  <p id="holder_name">
+    <%= f.label      :holder_name %><br>
     <%= f.text_field :holder_name %>
+  </p>
+
+  <p id="number">
+    <%= f.label :number %><br>
+    <%= f.text_field :number %>
+  </p>
+
+  <div id="expiration_month">
+    <p>
+      <%= f.label :expiration_month %><br>
+      <%= f.text_field :expiration_month %>
+    </p>
   </div>
-  <p>
-    <%= f.label :text %><br>
-    <%= f.text_area :text %>
-  </p>
-  <p>
-    <%= javascript_tag "createToken()" %>
-    <%= f.submit %>
-  </p>
+
+  <div id="expiration_year">
+    <p>
+      <%= f.label :expiration_year %><br>
+      <%= f.text_field :expiration_year %>
+    </p>
+  </div>
+
+  <div id="security_code">
+    <p>
+      <%= f.label :security_code %><br>
+      <%= f.text_field :security_code %>
+    </p>
+  </div>
+
+  <br>
+  <br>
+  <%= javascript_tag "createToken()" %>
+  <%= f.submit %>
 </div>  
 <% end %>
