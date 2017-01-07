@@ -2,10 +2,22 @@
 
 <!-- https://www.omise.co/omise-js-api -->
 
-<p>
-Enter your Credit Card Info:
-</p>
+<p>Enter your Credit Card Info:</p>
+<hr>
 
+<p><h3>Pay.jp checkout</h3></p>
+<script
+  type="text/javascript"
+  src="https://checkout.pay.jp/"
+  class="payjp-button"
+  data-key="pk_test_0383a1b8f91e8a6e3ea0e2a9"
+  data-on-created="onCreated"
+  data-text="支払う"
+  data-submit-text="支払う"
+  data-partial="true">
+</script>
+<hr>
+<p><h3>Omise.js</h3></p>
 <script src="https://cdn.omise.co/omise.js.gz"></script>
 <script type="text/javascript">
   function createToken(){
@@ -79,4 +91,6 @@ Enter your Credit Card Info:
   <%= javascript_tag "createToken()" %>
   <%= f.submit %>
 </div>  
+<hr>
+
 <% end %>
