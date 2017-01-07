@@ -44,8 +44,8 @@ class LinksTest < ActiveSupport::TestCase
   end
 
   def make_pair(head, tail)
-     return " -#{head} \"#{tail[0]}=#{tail[1]}\"" if head == "d"
-     return " -#{head} #{tail[0]}"                if head != "d"
+    return " -#{head} \"#{tail[0]}=#{tail[1]}\"" if head == "d"
+    return " -#{head} #{tail[0]}"                if head != "d"
   end
 
   def car(l)
@@ -62,15 +62,16 @@ class LinksTest < ActiveSupport::TestCase
   end
 
   test "ass" do
-    system build_curl_params(curl_url(OMISE), [
-             %w(X POST), 
-             ["u", get_public_api_key(OMISE)],
-             %w(d amount 1000),
-             %w(d currency thb),
-             %w(d title aaaa),
-             %w(d description AAA),
-             %w(d multiple true)
-           ])
+    system build_curl_params(curl_url(OMISE),
+                             [
+                               %w(X POST), 
+                               ["u", get_public_api_key(OMISE)],
+                               %w(d amount 1000),
+                               %w(d currency thb),
+                               %w(d title aaaa),
+                               %w(d description AAA),
+                               %w(d multiple true)
+                             ])
   end
 
   test "create a link for one time use" do
